@@ -12,9 +12,12 @@ class SASSCompiler(BaseCompiler):
         self.parser = ImportParser()
 
     def __call__(self, asset):
-        dependency_paths = self.parser.parse_imports(asset.absolute_path)
+        include_path = os.path.dirname(asset.absolute_path)
         asset.processed_source = sass.compile(
-            string=str(asset.processed_source))
+            string=str(asset.processed_source),
+            include_paths=[include_path],
+        )
+        dependency_paths = self.parser.parse_imports(asset.absolute_path)
         for path in dependency_paths:
             asset.dependencies.add(path)
 

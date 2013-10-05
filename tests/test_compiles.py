@@ -22,7 +22,10 @@ class AbstractSassCompilerTestCase(unittest.TestCase):
     def remove_output_files(self):
         output_glob = path.join(fixtures_dir, "output", "*")
         for output_file in glob.glob(output_glob):
-            os.remove(output_file)
+            if path.isdir(output_file):
+                shutil.rmtree(output_file)
+            else:
+                os.remove(output_file)
 
     def setup_environment(self, directory):
         os.chdir(directory)
@@ -57,6 +60,14 @@ class SassCompilerTestCase(AbstractSassCompilerTestCase):
         actual_content = load_fixture(expected_output_file)
         self.assertEqual(expected_content, actual_content)
 
+    def test_dependencies_loaded_in_child_subdir(self):
+        self.setup_environment(path.join(fixtures_dir, "wrong_directory_tests"))
+        self.environment.save()
+        expected_content = load_fixture("wrong_directory_tests/expected_content.css")
+        expected_output_file = path.join(fixtures_dir, "output/subdir/main.css")
+        self.output_files.append(expected_output_file)
+        actual_content = load_fixture(expected_output_file)
+        self.assertEqual(expected_content, actual_content)
 
 class DependencyChangeTestCase(AbstractSassCompilerTestCase):
 

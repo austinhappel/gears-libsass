@@ -9,9 +9,9 @@ setup(
     version='0.0.1',
     author='Alex Good',
     author_email='alex@makerlabs.co.uk',
-    modules=['gears_libsass'],
+    py_modules=['gears_libsass'],
     description='Gears compiler for sass using python-libsass',
-    long_description=read('README.md'),
+    long_description=read('README'),
     install_requires=[
         'libsass>=0.3.0'
     ],
