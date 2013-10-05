@@ -1,0 +1,5 @@
+@import "dependency";
+
+html {
+    @include halfwidth;
+}

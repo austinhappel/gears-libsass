@@ -1,0 +1,5 @@
+@import "transitive_dependency";
+
+@mixin halfwidth {
+     width:$constantwidth;
+}
