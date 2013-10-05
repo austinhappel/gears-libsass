@@ -6,7 +6,7 @@ def read(filename):
 
 setup(
     name='gears-libsass',
-    version='0.0.2',
+    version='0.0.3',
     author='Alex Good',
     author_email='alex@makerlabs.co.uk',
     py_modules=['gears_libsass'],

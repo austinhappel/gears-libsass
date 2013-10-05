@@ -15,7 +15,7 @@ class SASSCompiler(BaseCompiler):
         include_path = os.path.dirname(asset.absolute_path)
         asset.processed_source = sass.compile(
             string=str(asset.processed_source),
-            include_paths=[include_path],
+            include_paths=[str(include_path)],
         )
         dependency_paths = self.parser.parse_imports(asset.absolute_path)
         for path in dependency_paths:
