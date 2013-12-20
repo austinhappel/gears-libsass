@@ -44,7 +44,14 @@ class ImportParser(object):
 
     def _get_path(self, current_file, match_result):
         file_dir = path.dirname(current_file)
-        import_path = path.abspath(file_dir + "/" + match_result) + ".scss"
+        match_split = match_result.rsplit('.', 1)
+        if len(match_split) > 1 and \
+            (match_split[-1] == "css" or match_split[-1] == "scss"):
+            file_extension = ""
+        else:
+            file_extension = ".scss"
+
+        import_path = path.abspath(file_dir + "/" + match_result) + file_extension
         partial_path = self._create_partial_filename(import_path)
         if path.isfile(partial_path):
             import_path = partial_path
